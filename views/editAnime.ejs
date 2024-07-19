@@ -1,0 +1,26 @@
+<div class="row justify-content-center">
+    <div class="col-md-6">
+        <form method="post" action="/editAnime/<%= anime.id %>/?_method=PUT">
+            <div class="mb-3">
+              <label for="title" class="form-label">Title Anime</label>
+              <input type="text" class="form-control" name="title" id="title" required value="<%= anime.title %>">
+            </div>
+            <div class="mb-3">
+              <label for="genre" class="form-label">Genre</label>
+              <input type="text" class="form-control" name="genre" id="genre" required value="<%= anime.genre %>">
+            </div>
+            <div class="mb-3">
+              <label for="rating" class="form-label">Rating</label>
+              <input type="number" class="form-control" name="rating" id="rating" required value="<%= anime.rating %>">
+            </div>
+            <div class="mb-3">
+              <label for="type" class="form-label">Type</label>
+              <input type="text" class="form-control" name="type" id="type" required value="<%= anime.type %>">
+            </div>
+            <div class="mb-3">
+              <textarea name="description" id="description" cols="70" rows="10" placeholder="Description" required ><%= anime.description %></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </form>
+    </div>
+</div>

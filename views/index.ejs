@@ -1,0 +1,26 @@
+
+    <a href="/addAnime" class="btn btn-success badge">Add Anime</a>
+    <% if (animes.length === 0) { %>
+     <h1>No Anime Data</h1>
+    <% } %>
+    <% animes.forEach(anime => { %>
+        <ul>
+            
+             <strong><li>Title: <%= anime.title %></li></strong>
+             <li>Genre: <% anime.genre.forEach(g => { %>
+                <a href="/filteredAnime?<%= encodeURIComponent(g) %>"><%= g %></a>
+                <% if (anime.genre.indexOf(g) !== anime.genre.length - 1) { %>
+                    ,
+                <% } %>
+            <% }) %>
+                
+             <li>Rating:<%= anime.rating %></li>
+             <li>Type:<%= anime.type %></li>
+             <li>Description: <%=anime.description %></li>
+            <a href="/editAnime/<%= anime.id %>" class="btn btn-primary badge">edit</a>
+            <form action="/deleteAnime/<%= anime.id %>/?_method=DELETE" method="post">
+                <button class="btn btn-danger badge">delete</button>
+            </form>
+            
+        </ul>
+        <% }) %>
