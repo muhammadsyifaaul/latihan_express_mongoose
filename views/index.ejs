@@ -1,14 +1,17 @@
 
     <a href="/addAnime" class="btn btn-success badge">Add Anime</a>
     <% if (animes.length === 0) { %>
+        <a href="/home" class="btn btn-primary badge">All Anime</a>
      <h1>No Anime Data</h1>
+    <% } else if(allAnime) { %>
+        <a href="/home" class="btn btn-primary badge">All Anime</a>
     <% } %>
     <% animes.forEach(anime => { %>
         <ul>
             
              <strong><li>Title: <%= anime.title %></li></strong>
              <li>Genre: <% anime.genre.forEach(g => { %>
-                <a href="/filteredAnime?<%= encodeURIComponent(g) %>"><%= g %></a>
+                <a href="/home?genre=<%= encodeURIComponent(g) %>"><%= g %></a>
                 <% if (anime.genre.indexOf(g) !== anime.genre.length - 1) { %>
                     ,
                 <% } %>
@@ -19,7 +22,7 @@
              <li>Description: <%=anime.description %></li>
             <a href="/editAnime/<%= anime.id %>" class="btn btn-primary badge">edit</a>
             <form action="/deleteAnime/<%= anime.id %>/?_method=DELETE" method="post">
-                <button class="btn btn-danger badge">delete</button>
+                <button class="btn btn-danger badge" id="delete-button">delete</button>
             </form>
             
         </ul>

@@ -25,18 +25,39 @@ app.get('/', (req,res) => {
 })
 
 app.get('/home',async(req,res) => {
+    const allAnime = false
+    const {title, genre} = req.query
     try {
-        const animes = await Anime.find()
+        if(title) {
+        const anime = await Anime.find({title : {$regex: title, $options: 'i'}})
+        res.render('index', {
+            title: 'Home | Praktik Crud',
+            layout: 'layouts/main-layout',
+            animes: anime,
+            allAnime: true
+        })
+        } else if(genre) {
+            const anime = await Anime.find({genre : {$regex: genre, $options: 'i'}})
+        res.render('index', {
+            title: 'Home | Praktik Crud',
+            layout: 'layouts/main-layout',
+            animes: anime,
+            allAnime: true
+        })
+        } 
+        else {
+            const animes = await Anime.find()
         res.render('index',{
             title: 'Home | Praktik Crud',
             layout: 'layouts/main-layout',
-            animes
+            animes,
+            allAnime
         })
+        }
     }catch {
         res.status(500).send('Internal Server Error');
     }  
 })
-
 app.get('/addAnime', (req,res) => {
     res.render('addAnime', {
         layout: 'layouts/main-layout',
@@ -102,6 +123,8 @@ app.delete('/deleteAnime/:id', async (req,res) => {
         console.log(err)
     }
 })
+
+
 app.listen(3000, () => {
     console.log('server is running')
 })
